@@ -2,13 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/index');
+const config = require('./config/app.config');
 const app = express();
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use('/', usersRouter);
 
@@ -24,8 +22,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const port = 8000;
+const port = 8001;
 
-app.listen(port, () => {
-  console.log('We are live on ' + port);
-});
+app.listen(config.server.port, config.server.host, err => {
+        if (err) {
+            console.log('Server creation error: ' + err);
+            return;
+        }
+        console.log(`server started on ${config.server.host}:${config.server.port}`);
+    });
