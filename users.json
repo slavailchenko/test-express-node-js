@@ -1,0 +1,40 @@
+[
+	{
+	"id": 0,
+	"firstName": "Slava",
+	"lastName": "Ilchenko",
+	"email": "slavailchenko@gmail.com",
+	"phone": "0677068573"
+},
+{
+	"id": 1,
+	"firstName": "Ivan",
+	"lastName": "Robert",
+	"email": "ivanrobert@gmail.com",
+	"phone": "067044903"
+},
+{
+	"id": 2,
+	"firstName": "Petr",
+	"lastName": "Kiyan",
+	"email": "petrkiyan@gmail.com",
+	"phone": "0500054333"
+},
+{
+	"id": 3,
+	"firstName": "Alina",
+	"lastName": "Turikova",
+	"email": "alinaturikova@gmail.com",
+	"phone": "0678908989"
+},
+{
+	"id": 4,
+	"firstName": "Milana",
+	"lastName": "Milaya",
+	"email": "milanamilaya@gmail.com",
+	"phone": "0667430909"
+}
+]
+
+
+
