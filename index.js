@@ -22,12 +22,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const port = 8001;
-
 app.listen(config.server.port, config.server.host, err => {
         if (err) {
             console.log('Server creation error: ' + err);
             return;
         }
         console.log(`server started on ${config.server.host}:${config.server.port}`);
-    });
+});

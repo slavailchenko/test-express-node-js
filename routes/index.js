@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const users = require ('../models/index');
+const users = require ('../controllers/index');
 
-	router.get('/', users.getUsers);
+	router.get('/users', users.getUsers);
 
-	router.get('/:id', users.getUserById);
+	router.get('/users/:id', users.getUserById);
 
-	router.post('/addUser', users.addUser);
+	router.post('/users', users.addUser);
 
-	router.put('/updateUser/:id/', users.updateUserById);
+	router.put('/users/:id', users.updateUserById);
 
-	router.patch('/editUser/:id/', users.editUserById);
+	router.patch('/users/:id', users.editUserById);
 
-	router.delete('/deleteUser/:id/', users.deleteUserById);
+	router.delete('/users/:id', users.deleteUserById);
 
 module.exports = router;
