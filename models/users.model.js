@@ -2,13 +2,17 @@ const users = require("../users.json").slice();
 
 module.exports.getUsers =  (query) => {
 	let items = Object.keys(query);
+  console.log (items);  
 
 	if (!users) {
         console.log('Users is null');
     } else {
     	let result = users;
     	items.forEach (item => {
-    		result = result.filter(user => user[item].startsWith(query[item]))
+        if (item == 'id') 
+          result = result.filter(res => res[item] == query[item]) 
+        else
+          result = result.filter(res => res[item].startsWith(query[item]))
     	});
     	return result;
     }
