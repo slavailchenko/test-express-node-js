@@ -1,4 +1,4 @@
-const modelUsers = require ('../models/index');
+const modelUsers = require ('../models/users.model');
 const ServerError = require('../libs/errors');
 const log = require('../services/log.service');
 

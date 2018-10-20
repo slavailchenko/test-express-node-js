@@ -1,7 +1,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const usersRouter = require('./routes/index');
+const usersRouter = require('./routes/users.route');
 const config = require('./config/app.config');
 const log = require('./services/log.service');
 const ServerError = require('./libs/errors');
