@@ -45,9 +45,13 @@ module.exports.updateUserById =  (id, data) => {
 	let user = users.find(user => user.id == id);
 
 	if (user) {
-	   let keys = Object.keys(data);
-	   keys.forEach(key => user[key] = data[key]);
-       return {user: user, message: `User with id ${id} updated`};
+    let keys = Object.keys(data);
+    if (keys.length < 4) {
+      return {user: user, message: 'No data to update'}
+    } else {
+      keys.forEach(key => user[key] = data[key]);
+      return {user: user, message: `User with id ${id} updated`};
+    }
     } else {
     	return 'Not founded user';
     }

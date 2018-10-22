@@ -9,5 +9,10 @@ module.exports = {
                 exposedHeaders: '*'
             }
         }
-    }
+    },
+    auth: {
+        tokenExpirationTimeSec: 300,
+        version: 1
+        // secretKey: 'user-sec-key'
+        }
 }
