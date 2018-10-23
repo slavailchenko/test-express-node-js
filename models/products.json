@@ -1,0 +1,49 @@
+[
+	{
+	"title": "Apple iPhone X 64Gb Silver",
+	"price": "940",
+	"status": "FREE"
+},
+	{
+	"title": "Apple iPhone X 64Gb Space Gray",
+	"price": "940",
+	"status": "FREE"
+},
+	{
+	"title": "Apple iPhone XS 64Gb Gold",
+	"price": "1100",
+	"status": "SOLD"
+},
+	{
+	"title": "Apple iPhone XS MAX 64Gb Gold",
+	"price": "1250",
+	"status": "FREE"
+},
+	{
+	"title": "Apple iPhone XS MAX 64Gb Silver",
+	"price": "1200",
+	"status": "SOLD"
+},
+	{
+	"title": "Apple iPhone XS 256Gb Gold",
+	"price": "1200",
+	"status": "FREE"
+},
+	{
+	"title": "Apple iPhone X 256Gb Silver",
+	"price": "1060",
+	"status": "FREE"
+},
+	{
+	"title": "Apple iPhone XS MAX 256Gb Gold",
+	"price": "1430",
+	"status": "SOLD"
+},
+	{
+	"title": "Apple iPhone XS MAX 256Gb Space Gray",
+	"price": "1380",
+	"status": "FREE"
+}
+]
+
+

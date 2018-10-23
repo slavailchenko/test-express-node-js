@@ -3,16 +3,11 @@ const ServerError = require('../libs/errors');
 const log = require('../services/log.service');
 
 module.exports.getUsers =  (req, res, next) => {
-
-let data = modelUsers.getUsers(req.query);
-
-if (!data.length) {
-  return next (new ServerError(404, 'Users was not found with such params'));
-}
-        else res.json(data);
-    
+  let data = modelUsers.getUsers(req.query);
+  if (!data.length) {
+    return next (new ServerError(404, 'Users was not found with such params'));
+  } else res.json(data);
 };
-
 
 module.exports.getUserById =  (req, res, next) => {
   let data = modelUsers.getUserById(req.params.id);
@@ -24,9 +19,7 @@ module.exports.getUserById =  (req, res, next) => {
 };
 
 module.exports.addUser =  (req, res, next) => {
-
- let data = modelUsers.addUser(req.body);
-
+  
 	  if((!req.body.firstName) || 
        (!req.body.lastName)|| 
        (!req.body.email) || 
@@ -35,6 +28,7 @@ module.exports.addUser =  (req, res, next) => {
         return next (new ServerError(403, 'Data is invalid'));
 
     } else {
+      let data = modelUsers.addUser(req.body);
       res.json(data);
     }
 };
