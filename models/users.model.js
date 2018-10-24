@@ -17,7 +17,7 @@ module.exports.getUsers =  (query) => {
 };
 
 module.exports.getUserById = (id) => {
-  return users.find (users => user.id == id)
+  return users.find (user => user.id == id)
 };
 
 module.exports.addUser = (data) => {
