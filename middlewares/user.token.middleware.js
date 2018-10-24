@@ -17,6 +17,9 @@ module.exports.checkSystem = (req, res, next) => {
 
 module.exports.checkUser = (req, res, next) => {
     const token = req.headers['x-access-token'];
+    if (!token) {
+        return next(new ServerError(401, 'No authorization token was found'));
+    };
     let data = tokenJWT.verifyToken(token);
     // console.log (data);
     if (data.role == 'user') {
