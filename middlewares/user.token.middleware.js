@@ -7,7 +7,7 @@ module.exports.checkSystem = (req, res, next) => {
         return next(new ServerError(401, 'No authorization token was found'));
     };
     let data = tokenJWT.verifyToken(token);
-     // console.log (data);
+     console.log (data);
     if (data.role == 'system') {
         next();
     } else {
@@ -21,7 +21,7 @@ module.exports.checkUser = (req, res, next) => {
         return next(new ServerError(401, 'No authorization token was found'));
     };
     let data = tokenJWT.verifyToken(token);
-    // console.log (data);
+    console.log (data);
     if (data.role == 'user') {
         req.currentUser = data; 
         next();

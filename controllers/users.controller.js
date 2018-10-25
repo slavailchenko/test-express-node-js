@@ -19,8 +19,8 @@ module.exports.getUserById =  (req, res, next) => {
 };
 
 module.exports.addUser =  (req, res, next) => {
-  
-	  if((!req.body.firstName) || 
+
+  if((!req.body.firstName) || 
        (!req.body.lastName)|| 
        (!req.body.email) || 
        (!req.body.phone)) {
@@ -35,20 +35,13 @@ module.exports.addUser =  (req, res, next) => {
 
 module.exports.updateUserById =  (req, res, next) => {
 
-  let data = modelUsers.updateUserById(req.params.id, req.body);
+   let data = modelUsers.updateUserById(req.params.id, req.body);
 
     if(!(modelUsers.getUserById(req.params.id))) {
       return next (new ServerError(404, 'User not found'));
     } else {
-    if ((!req.body.firstName) || 
-       (!req.body.lastName)|| 
-       (!req.body.email) || 
-       (!req.body.phone)) {
-        return next (new ServerError(403, 'Data is invalid'));
-    } else {
         res.json(data);
     }
-  }
 };
 
 module.exports.editUserById =  (req, res, next) => {
@@ -57,12 +50,8 @@ module.exports.editUserById =  (req, res, next) => {
   if(!(modelUsers.getUserById(req.params.id))) {
     return next (new ServerError(404, 'User not found'));
   } else {
-    if((!req.body.email) || (!req.body.phone)) {
-      return next (new ServerError(403, 'Data is invalid'));
-    } else {
       res.json(data);
     }
-  }
 };
 
 module.exports.deleteUserById = (req, res, next) => {

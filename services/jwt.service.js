@@ -23,7 +23,7 @@ module.exports.verifyToken = (token) => {
 			 if (err) {
 			 	return new ServerError(401, 'Invalid auth token')
 			 } else {
-			 	// console.log('decoded '+decoded);
+			 	console.log(decoded);
 			 	return decoded;
 			 }
 			});
