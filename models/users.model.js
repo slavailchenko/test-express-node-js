@@ -1,4 +1,5 @@
 const users = require("../users.json").slice();
+const fields = ['firstName', 'lastName', 'email', 'phone'];
 
 module.exports.getUsers =  (query) => {
 	let items = Object.keys(query);
@@ -21,46 +22,59 @@ module.exports.getUserById = (id) => {
 };
 
 module.exports.addUser = (data) => {
-  let items = Object.keys(data);
+ 
+  let save = true;
   let obj = {};
   obj.id = users[users.length-1].id+1;
-  items.forEach (item => {
-    obj[item] = data[item];
+  fields.forEach (item => {
+    if (data[item]) obj[item] = data[item]
+      else save = false;
   });
-  users.push(obj);
-  console.log (users);
-  return {user: obj, message: `User ${obj.id} added`};
-    
- };
+  if (save == false) return false
+    else {
+      users.push(obj);
+      console.log (users);
+      return {user: obj, message: `User ${obj.id} added`}
+    }
+};
 
 module.exports.updateUserById =  (id, data) => {
-  let user = users.find(user => user.id == id);
-  if (user) {
-    let items = Object.keys(data);
-    if (items.length < 4) {
-      return {user: user, message: 'No data to update'}
-    } else {
-      items.forEach(i => user[i] = data[i]);
-      return {user: user, message: `User with id ${id} updated`};
+  let edit = true;
+  let obj = {};
+  let userIndex = users.findIndex(user => user.id == id);
+  if (userIndex>-1) {
+    obj.id = users[userIndex].id;
+    fields.forEach (item => {
+    if (data[item]) obj[item] = data[item]
+      else edit = false;
+  });
+  if (edit == false) return false
+    else {
+      users[userIndex] = obj;
+      console.log (obj);
+      return {user: obj, message: `User ${obj.id} updated`}
     }
-  } else {
-    return 'Not founded user';
-  }
+  } else return id;
 };
 
 module.exports.editUserById =  (id, data) => {
-  let user = users.find(user => user.id == id);
-  if (user) {
-    let items = Object.keys(data);
-    if (items.length == 0) {
-      return {user: user, message: 'No data to update'}
-    } else {
-      items.forEach(i => user[i] = data[i]);
-      return {user: user, message: `Data of User with ${id} updated`};
+  let someEdit = true;
+  let obj = {};
+  let someFields = ['email', 'phone'];
+  let userIndex = users.findIndex(user => user.id == id);
+  if (userIndex>-1) {
+    someFields.forEach (item => {
+    if (data[item]) obj[item] = data[item]
+      else someEdit = false;
+  });
+  if (someEdit == false) return false
+    else {
+      Object.assign(users[userIndex], obj);
+      console.log (users[userIndex]);
+      return {user: users[userIndex], message: `User ${users[userIndex].id} updated`}
     }
-  } else {
-    return 'Not founded user';
-  }
+  } else return id;
+
 };
 
 module.exports.deleteUserById =  (id) => {

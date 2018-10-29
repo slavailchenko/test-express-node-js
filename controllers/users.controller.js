@@ -12,7 +12,7 @@ module.exports.getUsers =  (req, res, next) => {
 module.exports.getUserById =  (req, res, next) => {
   let data = modelUsers.getUserById(req.params.id);
   if(!data) {
-    return next (new ServerError(404, 'User not found', 'Users was not found with such params'));
+    return next (new ServerError(404, 'User not found'));
   } else {
     res.json(data);
   }
@@ -20,38 +20,48 @@ module.exports.getUserById =  (req, res, next) => {
 
 module.exports.addUser =  (req, res, next) => {
 
-  if((!req.body.firstName) || 
-       (!req.body.lastName)|| 
-       (!req.body.email) || 
-       (!req.body.phone)) {
-          
-        return next (new ServerError(403, 'Data is invalid'));
+  try {
+    let data = modelUsers.addUser(req.body);
+    if (data == false) return next (new ServerError(403, 'Data is invalid'))
+      else res.json(data);
+  } catch (err) {
+    return next (new ServerError(403, err));
+  }
 
-    } else {
-      let data = modelUsers.addUser(req.body);
-      res.json(data);
-    }
 };
 
 module.exports.updateUserById =  (req, res, next) => {
 
-   let data = modelUsers.updateUserById(req.params.id, req.body);
-
-    if(!(modelUsers.getUserById(req.params.id))) {
+ try {
+  let data = modelUsers.updateUserById(req.params.id, req.body);
+    if(data == false) {
+      return next (new ServerError(403, 'Data is invalid'));
+    } else if (data == req.params.id) {
       return next (new ServerError(404, 'User not found'));
     } else {
         res.json(data);
     }
+  } catch (err) {
+    return next (new ServerError(403, err));
+  }
+  
 };
 
 module.exports.editUserById =  (req, res, next) => {
-  let data = modelUsers.editUserById(req.params.id, req.body);
 
-  if(!(modelUsers.getUserById(req.params.id))) {
-    return next (new ServerError(404, 'User not found'));
-  } else {
-      res.json(data);
+ try {
+  let data = modelUsers.editUserById(req.params.id, req.body);
+    if(data == false) {
+      return next (new ServerError(403, 'Data is invalid'));
+    } else if (data == req.params.id) {
+      return next (new ServerError(404, 'User not found'));
+    } else {
+        res.json(data);
     }
+  } catch (err) {
+    return next (new ServerError(403, err));
+  }
+
 };
 
 module.exports.deleteUserById = (req, res, next) => {

@@ -7,7 +7,6 @@ module.exports.checkSystem = (req, res, next) => {
         return next(new ServerError(401, 'No authorization token was found'));
     };
     let data = tokenJWT.verifyToken(token);
-     console.log (data);
     if (data.role == 'system') {
         next();
     } else {
@@ -21,7 +20,6 @@ module.exports.checkUser = (req, res, next) => {
         return next(new ServerError(401, 'No authorization token was found'));
     };
     let data = tokenJWT.verifyToken(token);
-    console.log (data);
     if (data.role == 'user') {
         req.currentUser = data; 
         next();
@@ -33,7 +31,6 @@ module.exports.checkUser = (req, res, next) => {
 // PWD
 
 module.exports.checkPWD = (req, res, next) => {
-    // console.log('pwd '+process.env.ADMIN_PASSWORD);
 
     if (req.headers['x-admin-password'] == process.env.ADMIN_PASSWORD) {
         next()
