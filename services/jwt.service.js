@@ -12,13 +12,10 @@ module.exports.generateToken = (data) => {
 	});
 	const token = jwt.sign(dataAll, secret,
 		{ expiresIn: config.auth.tokenExpirationTimeSec});
-
-	// console.log (dataAll, token);
 	return token;
 };
 
 module.exports.verifyToken = (token) => {
-
 	return jwt.verify(token, secret, (err, decoded) => {
 			 if (err) {
 			 	return new ServerError(401, 'Invalid auth token')

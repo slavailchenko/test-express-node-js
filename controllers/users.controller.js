@@ -11,11 +11,7 @@ module.exports.getUsers =  (req, res, next) => {
 
 module.exports.getUserById =  (req, res, next) => {
   let data = modelUsers.getUserById(req.params.id);
-  if(!data) {
-    return next (new ServerError(404, 'User not found'));
-  } else {
-    res.json(data);
-  }
+  res.json(data);
 };
 
 module.exports.addUser =  (req, res, next) => {
@@ -36,8 +32,6 @@ module.exports.updateUserById =  (req, res, next) => {
   let data = modelUsers.updateUserById(req.params.id, req.body);
     if(data == false) {
       return next (new ServerError(403, 'Data is invalid'));
-    } else if (data == req.params.id) {
-      return next (new ServerError(404, 'User not found'));
     } else {
         res.json(data);
     }
@@ -53,8 +47,6 @@ module.exports.editUserById =  (req, res, next) => {
   let data = modelUsers.editUserById(req.params.id, req.body);
     if(data == false) {
       return next (new ServerError(403, 'Data is invalid'));
-    } else if (data == req.params.id) {
-      return next (new ServerError(404, 'User not found'));
     } else {
         res.json(data);
     }

@@ -3,8 +3,11 @@ const router = express.Router();
 
 const users = require ('../controllers/users.controller');
 const userToken = require('../middlewares/user.token.middleware');
+const userCheck = require('../middlewares/user.check.middleware');
 
 	router.use('/', userToken.checkSystem);
+
+	router.use('/:id', userCheck.checkUser);
 	
 	router.get('/', users.getUsers);
 

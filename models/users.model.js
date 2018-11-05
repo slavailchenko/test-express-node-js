@@ -42,7 +42,6 @@ module.exports.updateUserById =  (id, data) => {
   let edit = true;
   let obj = {};
   let userIndex = users.findIndex(user => user.id == id);
-  if (userIndex>-1) {
     obj.id = users[userIndex].id;
     fields.forEach (item => {
     if (data[item]) obj[item] = data[item]
@@ -54,7 +53,6 @@ module.exports.updateUserById =  (id, data) => {
       console.log (obj);
       return {user: obj, message: `User ${obj.id} updated`}
     }
-  } else return id;
 };
 
 module.exports.editUserById =  (id, data) => {
@@ -62,8 +60,7 @@ module.exports.editUserById =  (id, data) => {
   let obj = {};
   let someFields = ['email', 'phone'];
   let userIndex = users.findIndex(user => user.id == id);
-  if (userIndex>-1) {
-    someFields.forEach (item => {
+  someFields.forEach (item => {
     if (data[item]) obj[item] = data[item]
       else someEdit = false;
   });
@@ -73,8 +70,6 @@ module.exports.editUserById =  (id, data) => {
       console.log (users[userIndex]);
       return {user: users[userIndex], message: `User ${users[userIndex].id} updated`}
     }
-  } else return id;
-
 };
 
 module.exports.deleteUserById =  (id) => {
