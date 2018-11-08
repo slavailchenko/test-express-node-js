@@ -8,26 +8,36 @@ const config = require('./config/app.config');
 const log = require('./services/log.service');
 const serviceToken = require('./services/jwt.service');
 const ServerError = require('./libs/errors');
+var mongoose = require('./libs/mongoose');
 
-const app = express();
+let app;
 
-app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+const start = () => new Promise ((res, rej) => {
+	app = express ()
+	
+	app.use(bodyParser.json({limit: "50mb"}));
+	app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+	
+	app.use(log.logger);
 
-app.use(log.logger);
+	app.use('/system/users', usersRouter);
+	app.use('/admin', adminRouter);
+	app.use('/users', productsRouter);
 
-app.use('/system/users', usersRouter);
-app.use('/admin', adminRouter);
-app.use('/users', productsRouter);
+	app.use(ServerError.handle404Error);
+	app.use(ServerError.errorLogger);
+	app.use(ServerError.errorHandler);
 
-app.use(ServerError.handle404Error);
-app.use(ServerError.errorLogger);
-app.use(ServerError.errorHandler);
-
-app.listen(config.server.port, config.server.host, err => {
+	app.listen(config.server.port, config.server.host, err => {
         if (err) {
         	console.log('Server creation error: ' + err);
             return;
         }
         console.log(`server started on ${config.server.host}:${config.server.port}`);
+    });
+    res();
 });
+
+mongoose.connect().then(start);
+
+module.exports = app;

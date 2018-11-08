@@ -7,18 +7,20 @@ const userCheck = require('../middlewares/user.check.middleware');
 
 	router.use('/', userToken.checkSystem);
 
-	router.use('/:id', userCheck.checkUser);
+	// router.use('/:id', userCheck.checkUser);
 	
-	router.get('/', users.getUsers);
+	router.get('/', users.getAllUsers);
+
+	// router.get('/?email', users.getUserByEmail);
 
 	router.get('/:id', users.getUserById);
 
-	router.post('/', users.addUser);
+	router.post('/', users.newUser);
 
-	router.put('/:id', users.updateUserById);
+	router.put('/:id', users.updateUser);
 
 	router.patch('/:id', users.editUserById);
 
-	router.delete('/:id', users.deleteUserById);
+	router.delete('/:id', users.removeUser);
 
 module.exports = router;

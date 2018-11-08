@@ -1,6 +1,10 @@
+const _ = require('lodash');
+
 const modelUsers = require ('../models/users.model');
+const user = require ('../models/usersMongoose.model')
 const ServerError = require('../libs/errors');
 const log = require('../services/log.service');
+const userService = require('../services/user.service')
 
 module.exports.getUsers =  (req, res, next) => {
   let data = modelUsers.getUsers(req.query);
@@ -66,3 +70,40 @@ module.exports.deleteUserById = (req, res, next) => {
       res.json(`User with id ${id} is deleted`)
     }
 };
+
+// mongoose
+
+module.exports.newUser = (req, res, next) => {
+    const data = req.body;
+    userService.add(data)
+        .then(userSaved => res.json({user: userSaved}))
+        .catch(next);
+}
+
+module.exports.getAllUsers = (req, res, next) => {
+  userService.getAllUsers().
+        then (users => res.json(users)).
+        catch (next);
+}
+
+module.exports.getUserByEmail = (req, res, next) => {
+    const data = req.query.email;
+    userService.getUserByEmail(data)
+        .then(user => res.json({user: user}))
+        .catch(next);
+}
+
+module.exports.updateUser = (req, res, next) => {
+    const id = req.params.id;
+    const data = req.body;
+    userService.updateUser(id, data).
+        then(user => res.json({user: user})).
+        catch(next);
+}
+
+module.exports.removeUser = (req, res, next) => {
+    const id = req.params.id;
+    userService.removeUser(id).
+        then(user => res.json(`User with ${id} deleted`)).
+        catch(next);
+}

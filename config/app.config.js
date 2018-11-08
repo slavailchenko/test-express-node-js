@@ -11,7 +11,15 @@ module.exports = {
         }
     },
     auth: {
-        tokenExpirationTimeSec: 300,
+        tokenExpirationTimeSec: 3000,
         version: 1
+        },
+    database: {
+        uri: 'mongodb://localhost:27017/users',
+        promise: Promise,
+        options: {
+            useNewUrlParser: true,
+            useCreateIndex : true
         }
+    },
 }
