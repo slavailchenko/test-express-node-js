@@ -11,15 +11,15 @@ const userCheck = require('../middlewares/user.check.middleware');
 	
 	router.get('/', users.getAllUsers);
 
-	// router.get('/?email', users.getUserByEmail);
+	router.get('/:phone', users.getUserByPhone);
 
-	router.get('/:id', users.getUserById);
+	// router.get('/:id', users.getUserById);
 
 	router.post('/', users.newUser);
 
 	router.put('/:id', users.updateUser);
 
-	router.patch('/:id', users.editUserById);
+	router.patch('/:id', users.someUpdateUser);
 
 	router.delete('/:id', users.removeUser);
 

@@ -1,5 +1,5 @@
-const users = require('./users.json');
+const userModel = require('../models/usersMongoose.model');
 
-module.exports.currentUser = (query) => {
-    return users.find(user => user.id == query);
+module.exports.currentUser = (id) => {
+    return userModel.findById({_id: id}).lean();
 };
