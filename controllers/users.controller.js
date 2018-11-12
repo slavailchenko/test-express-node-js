@@ -31,12 +31,10 @@ module.exports = {
   },
 
   getUserById: (req, res, next) => {
-    userModel.findOne({_id: req.params.id}).lean().
+    userModel.findOne({_id: req.params.id}).
     then(user => {
-      let d = userModel.getFullName();
-      console.log(d);
+      res.json(user.fullname);
     }).
-    then(d => res.json({user: d})).
     catch(next);
   },
 

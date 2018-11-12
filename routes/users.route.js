@@ -12,7 +12,7 @@ const userCheck = require('../middlewares/user.check.middleware');
 
 	router.get('/phone/:phone', users.getUserByPhone);
 
-	// router.get('/:id', users.getUserById);
+	router.get('/:id', users.getUserById);
 
 	router.post('/', users.newUser);
 
