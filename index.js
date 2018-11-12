@@ -6,14 +6,13 @@ const adminRouter = require('./routes/admin.route');
 const productsRouter = require('./routes/products.route');
 const config = require('./config/app.config');
 const log = require('./services/log.service');
-const serviceToken = require('./services/jwt.service');
 const ServerError = require('./libs/errors');
-var mongoose = require('./libs/mongoose');
+const mongoose = require('./libs/mongoose');
 
 let app;
 
-const start = () => new Promise ((res, rej) => {
-	app = express ()
+mongoose.connect().then(()=> new Promise ((res, rej) => {
+	app = express ();
 	
 	app.use(bodyParser.json({limit: "50mb"}));
 	app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
@@ -36,8 +35,7 @@ const start = () => new Promise ((res, rej) => {
         console.log(`server started on ${config.server.host}:${config.server.port}`);
     });
     res();
-});
-
-mongoose.connect().then(start);
+})
+).catch((err) => console.log(err));
 
 module.exports = app;

@@ -1,68 +1,68 @@
-// const modelUsers = require ('../models/users.model');
 const user = require ('../models/usersMongoose.model')
 const ServerError = require('../libs/errors');
 const log = require('../services/log.service');
-const userService = require('../services/user.service')
+const userModel = require('../models/usersMongoose.model');
 
-// mongoose
+module.exports = {
+  
+  newUser: (req, res, next) => {
+    userModel.create(req.body).
+    then(userSaved => res.json({user: userSaved})).
+    catch(next);
+  },
 
-module.exports.newUser = (req, res, next) => {
-    const data = req.body;
-    userService.add(data)
-        .then(userSaved => res.json({user: userSaved}))
-        .catch(next);
-}
+  getAllUsers: (req, res, next) => {
+    const query = req.query.email || '';
+    userModel.find({ email: { $regex: query.toLowerCase().trim(),  $options: 'ig' }}).
+    then(users => {
+      if (!users.length) throw new ServerError(404, 'Users not founded');
+      res.json(users);
+    })
+    .catch(next);
+  },
 
-module.exports.getAllUsers = (req, res, next) => {
-  const query = req.query.email || '';
-  userService.getAllUsers(query)
-        .then(users => {
-          if (!users.length) throw new ServerError(404, 'Users not founded');
-          res.json(users);
-        })
-        .catch(next);
-}
+  getUserByPhone: (req, res, next) => {
+    userModel.findOne({phone: req.params.phone}).lean().
+    then(user => {
+      if (!user) throw new ServerError(404, 'User not founded');
+      res.json({user: user})
+    })
+    .catch(next);
+  },
 
-module.exports.getUserByPhone = (req, res, next) => {
-    const data = req.params.phone;
-    userService.getUserByPhone(data)
-        .then(user => {
-          if (!user) throw new ServerError(404, 'User not founded');
-          res.json({user: user})
-        })
-        .catch(next);
-}
+  getUserById: (req, res, next) => {
+    userModel.findOne({_id: req.params.id}).lean().
+    then(user => {
+      let d = userModel.getFullName();
+      console.log(d);
+    }).
+    then(d => res.json({user: d})).
+    catch(next);
+  },
 
-module.exports.updateUser = (req, res, next) => {
-    const id = req.params.id;
-    const data = req.body;
-    userService.updateUser(id, data).
-        then(user => {
-          if (!user) throw new ServerError(404, 'User not founded');
-          res.json({user: user});
-        }).
-        catch(next);
-}
+  updateUser: (req, res, next) => {
+    userModel.update({_id: req.params.id}, req.body).
+    then(user => {
+      res.json(`User with id=${req.params.id} updated`);
+    }).
+    catch(next);
+  },
 
-module.exports.someUpdateUser = (req, res, next) => {
-    const id = req.params.id;
-    const data = req.body;
-    userService.someUpdateUser(id, data).
-        then(user => {
-          if (!user) throw new ServerError(404, 'User not founded');
-          res.json({user: user});
-        }).
-        catch(next);
-}
+  someUpdateUser: (req, res, next) => {
+    userModel.update({_id: req.params.id}, {$set: req.body}).
+    then(user => {
+      res.json(`User with id=${req.params.id} updated`);
+    }).
+    catch(next);
+  },
 
-module.exports.removeUser = (req, res, next) => {
-    const id = req.params.id;
-    userService.removeUser(id).
-        then(user => {
-          if (!user) throw new ServerError(404, 'User not founded');          
-          res.json(`User with ${id} deleted`);
-        }).
-        catch(next);
+  removeUser: (req, res, next) => {
+    userModel.findByIdAndRemove({_id: req.params.id}).
+    then(user => {
+      res.json(`User with id=${req.params.id} deleted`);
+    }).
+    catch(next);
+  }
 }
 
 // module.exports.getUsers =  (req, res, next) => {

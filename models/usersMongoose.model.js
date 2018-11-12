@@ -7,7 +7,7 @@ const validateEmail = (email) => {
     return r.test(email)
 };
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     firstName: {
         type: String,
         required: true,
@@ -38,4 +38,9 @@ const userSchema = new Schema({
     versionKey: false
 });
 
-module.exports = mongoose.model('user', userSchema);
+// UserSchema.statics.getFullName = () => {
+//     console.log (this);
+//     return this.firstName + this.lastName;
+// }
+
+module.exports = mongoose.model('user', UserSchema);

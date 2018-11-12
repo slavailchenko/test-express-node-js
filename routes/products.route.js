@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
 const userToken = require('../middlewares/user.token.middleware');
 const products = require('../controllers/products.controller');

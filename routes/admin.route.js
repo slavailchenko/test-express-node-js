@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
 const password= require('../middlewares/user.token.middleware');
 const admin = require('../controllers/admin.controller');
